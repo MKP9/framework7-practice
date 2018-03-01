@@ -1,0 +1,33 @@
+<template>
+  <div class="page" data-name="map">
+    <div class="navbar">
+      <div class="navbar-inner sliding">
+        <div class="title">Map</div>
+      </div>
+    </div>
+    <div class="page-content">
+      <p>This is the map page</p>
+		<div class="list links-list">
+			<ul>
+				{{#each products}}
+				<li><a href="/product/{{id}}/">{{title}}</a></li>
+				{{/each}}
+			</ul>
+			
+		</div>
+		<div>
+		
+		</div>
+    </div>
+  </div>
+</template>
+<script>
+  return {
+    data: function () {
+      return {
+          products: this.$root.products,
+      };
+    }
+  };
+</script>
+

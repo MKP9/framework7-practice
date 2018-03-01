@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>My App</title>
+  <!--
+  Customize this policy to fit your own app's needs. For more guidance, see:
+      https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+  Some notes:
+      * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+      * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+      * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+          * Enable inline JS: add 'unsafe-inline' to default-src
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#2196f3">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  
+  <meta name="viewport" content="initial-scale=1.0">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    .left {
+      border: 1px solid gray;
+    }
+    #map {
+      height: 100%;
+    }
+  </style>
+
+  <link rel="stylesheet" href="framework7/css/framework7.min.css">
+  <link rel="stylesheet" href="css/icons.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Status bar overlay for fullscreen mode-->
+    <div class="statusbar"></div>
+    <!-- Left panel with cover effect-->
+    <div class="panel panel-left panel-cover theme-dark">
+      <div class="view">
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-inner">
+              <div class="title">Left Panel</div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="block">Left panel content goes here</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Right panel with reveal effect-->
+    <div class="panel panel-right panel-reveal theme-dark">
+      <div class="view">
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-inner">
+              <div class="title">Right Panel</div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="block">Right panel content goes here</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Views/Tabs container -->
+    <div class="views tabs ios-edges">
+      <!-- Tabbar for switching views-tabs -->
+      <div class="toolbar tabbar-labels toolbar-bottom-md">
+        <div class="toolbar-inner">
+          <a href="#view-home" class="tab-link tab-link-active">
+            <i class="icon f7-icons ios-only">home</i>
+            <i class="icon f7-icons ios-only icon-ios-fill">home_fill</i>
+            <i class="icon material-icons md-only">home</i>
+            <span class="tabbar-label">Home</span>
+          </a>
+          <a href="#view-map" class="tab-link">
+            <i class="icon f7-icons ios-only">map</i>
+            <i class="icon f7-icons ios-only icon-ios-fill">map_fill</i>
+            <i class="icon material-icons md-only">view_map</i>
+            <span class="tabbar-label">Map</span>
+          </a>
+          <a href="#view-list" class="tab-link">
+            <i class="icon f7-icons ios-only">list</i>
+            <i class="icon f7-icons ios-only icon-ios-fill">list_fill</i>
+            <i class="icon material-icons md-only">list</i>
+            <span class="tabbar-label">List</span>
+          </a>
+        </div>
+      </div>
+      <!-- Your main view/tab, should have "view-main" class. It also has "tab-active" class -->
+      <div id="view-home" class="view view-main tab tab-active">
+        <!-- Page, data-name contains page name which can be used in page callbacks -->
+        <div class="page" data-name="home">
+          <!-- Top Navbar -->
+          <div class="navbar">
+            <div class="navbar-inner">
+              <div class="left">
+                <a href="#" class="link icon-only panel-open" data-panel="left">
+                  <i class="icon f7-icons ios-only">menu</i>
+                  <i class="icon material-icons md-only">menu</i>
+                </a>
+              </div>
+              <div class="title sliding">Home</div>
+              <div class="right">
+                <a href="#" class="link icon-only panel-open" data-panel="right">
+                  <i class="icon f7-icons ios-only">menu</i>
+                  <i class="icon material-icons md-only">menu</i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scrollable page content-->
+          <div class="page-content">
+            <div class="block block-strong">
+              <p>Home Page Layout of some TBD design</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map View -->
+      <div id="view-map" class="view tab">
+        <!--Map page will be loaded here dynamically from /map/ route -->
+        
+        
+        <!-- Views -->
+        <div class="views">
+          <!-- Your main view, should have "view-main" class -->
+          <div class="view view-main">
+            <!-- Top Navbar-->
+            <div class="navbar">
+              <div class="navbar-inner">
+                <div class="right">
+                  <!--
+					Right link contains only icon - additional "icon-only" class
+					Additional "open-panel" class tells app to open panel when we click on this link
+				  -->
+                  <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+                </div>
+              </div>
+            </div>
+            <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+            <div class="pages navbar-through toolbar-through">
+              <!-- Page, "data-page" contains page name -->
+              <div data-page="index" class="page">
+                <!-- Scrollable page content -->
+                <div class="page-content">
+                  <!-- Link to another page -->
+                  <div id="map" style="bordr:1px solid green; height:400px; width:400px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>
+            var map;
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: 47.385233, lng: -122.234178},
+                    zoom: 14
+                });
+
+                // Initialize app
+                var myApp = new Framework7();
+
+                // If we need to use custom DOM library, let's save it to $$ variable:
+                var $$ = Dom7;
+
+                // Add view
+               
+
+            }
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/framework7/1.4.2/js/framework7.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaI-osqh54N3lR6av9T4vJSMuHSPrOJS8&callback=initMap"
+                async defer></script>
+
+
+
+
+       
+      </div>
+
+      <!-- List View -->
+      <div id="view-list" class="view tab">
+        <!-- List page will be loaded here dynamically from /list/ route -->
+      </div>
+    </div>
+    
+  </div>
+  <!-- Cordova -->
+  <!--
+  <script src="cordova.js"></script>
+  -->
+
+  <!-- Framework7 library -->
+  <script src="framework7/js/framework7.min.js"></script>
+
+  <!-- App routes -->
+  <script src="js/routes.js"></script>
+
+  <!-- Your custom app scripts -->
+  <script src="js/app.js"></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxhZUg3nraLavBBVicSlBvdrXnjJ6cuVc&libraries=places&callback=initAutocomplete"
+  async defer></script> -->
+  
+</body>
+</html>
